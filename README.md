@@ -1,7 +1,7 @@
 # Traccar Migration Tool v2
 Flujo: Origen -> Usuarios -> Destino -> Migración.
 La migración se ejecuta en dos fases: primero todos los usuarios; después sus vehículos y relaciones.
-Los usuarios nuevos reciben la contraseña temporal gps123. Los duplicados de vehículos se detectan por uniqueId.
+Los usuarios nuevos reciben la contraseña temporal . Los duplicados de vehículos se detectan por uniqueId.
 Cada ejecución genera un paquete JSON en packages/.
 
 Antiloss Migration Tool
