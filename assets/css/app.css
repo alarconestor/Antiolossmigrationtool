@@ -1,0 +1,322 @@
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f5f7;
+    color: #222
+}
+
+.app {
+    max-width: 900px;
+    margin: auto;
+    padding: 38px 24px
+}
+
+.wide {
+    max-width: 1250px
+}
+
+.brand {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 30px
+}
+
+.brand span {
+    font-weight: 400;
+    color: #777
+}
+
+.steps {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px
+}
+
+.steps b {
+    color: #89919a;
+    font-size: 13px;
+    white-space: nowrap
+}
+
+.steps .on {
+    color: #222
+}
+
+.steps .done {
+    color: #268040
+}
+
+.steps i {
+    height: 2px;
+    background: #ddd;
+    flex: 1;
+    margin: 0 12px
+}
+
+.card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 32px;
+    box-shadow: 0 8px 30px #00000012
+}
+
+h1 {
+    margin: 8px 0;
+    font-size: 30px
+}
+
+p {
+    color: #707780;
+    line-height: 1.5
+}
+
+small {
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #777
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.card label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 20px 0 7px
+}
+
+.card input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d5d9dd;
+    border-radius: 8px;
+    font-size: 15px
+}
+
+.card button {
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 20px;
+    background: #222;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer
+}
+
+.head button {
+    margin: 0
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px
+}
+
+.actions a {
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #e9ecef;
+    color: #333;
+    text-decoration: none
+}
+
+.actions .disabled {
+    opacity: .4;
+    pointer-events: none
+}
+
+.msg,
+.error {
+    padding: 12px;
+    border-radius: 8px;
+    margin: 18px 0
+}
+
+.error {
+    background: #fdecec;
+    color: #8b2525
+}
+
+.selectbar {
+    display: flex;
+    justify-content: space-between;
+    background: #f5f6f7;
+    padding: 12px;
+    border: 1px solid #e1e4e7;
+    border-radius: 8px;
+    margin: 15px 0
+}
+
+.selectbar input {
+    width: auto !important
+}
+
+.hide {
+    display: none
+}
+
+.table {
+    overflow: auto;
+    border: 1px solid #ddd;
+    border-radius: 9px
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px
+}
+
+th {
+    background: #eef0f2;
+    text-align: left;
+    padding: 12px;
+    font-size: 13px
+}
+
+td {
+    padding: 11px;
+    border-top: 1px solid #eee;
+    font-size: 14px
+}
+
+td input {
+    width: auto !important
+}
+
+.bar {
+    height: 12px;
+    background: #e5e7e9;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 25px 0
+}
+
+.bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: #222;
+    transition: .3s
+}
+
+.phase {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px
+}
+
+.phase b {
+    padding: 7px 12px;
+    border-radius: 20px;
+    background: #eee;
+    color: #777;
+    font-size: 13px
+}
+
+.phase b.active {
+    background: #222;
+    color: #fff
+}
+
+.current {
+    padding: 15px;
+    background: #f6f7f8;
+    border-radius: 8px;
+    font-weight: bold
+}
+
+.current.error {
+    background: #fdecec;
+    color: #8b2525
+}
+
+.log {
+    height: 300px;
+    overflow: auto;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 12px;
+    padding: 12px;
+    font: 13px/1.8 Consolas, monospace
+}
+
+.log .success {
+    color: #26743a
+}
+
+.log .error {
+    color: #9b2d2d
+}
+
+.log .info {
+    color: #5d6670
+}
+
+.summary {
+    margin-top: 20px;
+    padding: 20px;
+    background: #eef7f0;
+    border-radius: 9px
+}
+
+.summary h2 {
+    margin-top: 0
+}
+
+@media(max-width:650px) {
+    .app {
+        padding: 24px 15px
+    }
+
+    .head {
+        display: block
+    }
+
+    .head button {
+        margin-top: 15px
+    }
+
+    .steps b {
+        font-size: 11px
+    }
+
+    .steps i {
+        margin: 0 5px
+    }
+}
+#final-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#final-actions.hide {
+    display: none;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #222;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.button.secondary {
+    background: #e9ecef;
+    color: #222;
+}
