@@ -98,7 +98,7 @@ The Traccar API does not provide access to the original user password.
 
 Therefore, newly created users receive a temporary universal password:
 
-gps123
+
 
 The migration process reports this to the administrator.
 
