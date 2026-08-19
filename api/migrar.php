@@ -40,7 +40,32 @@ function out($a)
     @flush();
 }
 
+function motivoError($respuesta)
+{
+    if (empty($respuesta)) {
+        return 'Sin respuesta del servidor.';
+    }
 
+    $json = json_decode($respuesta, true);
+
+    if (is_array($json)) {
+        if (!empty($json['message'])) {
+            return $json['message'];
+        }
+
+        if (!empty($json['error'])) {
+            return $json['error'];
+        }
+
+        return json_encode(
+            $json,
+            JSON_UNESCAPED_UNICODE |
+            JSON_UNESCAPED_SLASHES
+        );
+    }
+
+    return trim($respuesta);
+}
 /*
 |--------------------------------------------------------------------------
 | Buscar usuario
@@ -413,7 +438,21 @@ foreach ($sel as $i => $u) {
             $p['id'],
             $p['password']
         );
+    /*
+ * Normalizar attributes para Traccar.
+ *
+ * Traccar espera attributes como objeto.
+ * Si SA devuelve un array vacío/lista, lo convertimos
+ * en un objeto vacío.
+ */
 
+    if (
+        isset($p['attributes']) &&
+        is_array($p['attributes']) &&
+        array_is_list($p['attributes'])
+        ) {
+        $p['attributes'] = new stdClass();
+        }
 
         /*
          * Asignar contraseña temporal
@@ -462,8 +501,9 @@ foreach ($sel as $i => $u) {
                 'message' =>
                     $name .
                     ' no pudo crearse (HTTP ' .
-                    ($c['http'] ?? 0) .
-                    ').'
+                        ($c['http'] ?? 0) .
+                            '). Motivo: ' .
+                    motivoError($c['respuesta'] ?? '')
 
             ]);
 
