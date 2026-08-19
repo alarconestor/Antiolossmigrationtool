@@ -1,0 +1,32 @@
+{
+    "version": "1.0",
+    "type": "Traccar_migration",
+    "createdAt": "2026-08-19T17:58:40+02:00",
+    "source": {
+        "url": "https://app.antiloss.net"
+    },
+    "destination": {
+        "url": "http://86.38.200.82:8082"
+    },
+    "users": [
+        {
+            "sourceId": 257,
+            "destinationId": null,
+            "name": "Ronaldoxxx",
+            "email": "laynezronaldo260@gmail.com",
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "vehicles": [],
+            "errors": {
+                "usuario": "No creado"
+            }
+        }
+    ],
+    "stats": {
+        "usersCreated": 0,
+        "usersExisting": 0,
+        "vehiclesCreated": 0,
+        "relations": 0,
+        "errors": 1
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "version": "1.0",
+    "type": "Traccar_migration",
+    "createdAt": "2026-08-19T18:24:46+02:00",
+    "source": {
+        "url": "https://app.antiloss.net"
+    },
+    "destination": {
+        "url": "http://86.38.200.82:8082"
+    },
+    "users": [
+        {
+            "sourceId": 263,
+            "destinationId": 37,
+            "name": "Daniel",
+            "email": "supervisorkronnos@gmail.com",
+            "phone": "50232872151",
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 832,
+                    "destinationId": 61,
+                    "name": "HUNK ROJA  M-594KFB",
+                    "uniqueId": "868166058811787"
+                },
+                {
+                    "sourceId": 806,
+                    "destinationId": 62,
+                    "name": "M-639KYL Eco negra",
+                    "uniqueId": "868166057808776"
+                },
+                {
+                    "sourceId": 808,
+                    "destinationId": 63,
+                    "name": "M-767KVN Hunk negra",
+                    "uniqueId": "868166057809345"
+                }
+            ],
+            "errors": []
+        },
+        {
+            "sourceId": 289,
+            "destinationId": 157,
+            "name": "Daniel ",
+            "email": "automio2022@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 877,
+                    "destinationId": 206,
+                    "name": "Daniel crv 632GWR",
+                    "uniqueId": "868166052773637"
+                },
+                {
+                    "sourceId": 903,
+                    "destinationId": 229,
+                    "name": "Gps",
+                    "uniqueId": "868166058811886"
+                }
+            ],
+            "errors": []
+        }
+    ],
+    "stats": {
+        "usersCreated": 1,
+        "usersExisting": 1,
+        "vehiclesCreated": 0,
+        "relations": 5,
+        "errors": 0
+    }
+}

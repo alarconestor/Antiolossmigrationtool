@@ -1,0 +1,39 @@
+{
+    "version": "1.0",
+    "type": "Traccar_migration",
+    "createdAt": "2026-08-19T18:14:53+02:00",
+    "source": {
+        "url": "https://app.antiloss.net"
+    },
+    "destination": {
+        "url": "http://86.38.200.82:8082"
+    },
+    "users": [
+        {
+            "sourceId": 257,
+            "destinationId": 155,
+            "name": "Ronaldoxxx",
+            "email": "laynezronaldo260@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 790,
+                    "destinationId": 228,
+                    "name": "Gixxer 2",
+                    "uniqueId": "868166057808511"
+                }
+            ],
+            "errors": []
+        }
+    ],
+    "stats": {
+        "usersCreated": 1,
+        "usersExisting": 0,
+        "vehiclesCreated": 0,
+        "relations": 1,
+        "errors": 0
+    }
+}

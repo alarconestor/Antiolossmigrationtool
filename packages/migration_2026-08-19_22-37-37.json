@@ -1,0 +1,39 @@
+{
+    "version": "1.0",
+    "type": "Traccar_migration",
+    "createdAt": "2026-08-19T22:37:34+02:00",
+    "source": {
+        "url": "https://app.antiloss.net"
+    },
+    "destination": {
+        "url": "http://86.38.200.82:8082"
+    },
+    "users": [
+        {
+            "sourceId": 357,
+            "destinationId": 3,
+            "name": "Arely--",
+            "email": "arhilen84@hotmail.com",
+            "phone": "50254129029",
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 1169,
+                    "destinationId": 1,
+                    "name": "Arely2",
+                    "uniqueId": "867111065688480"
+                }
+            ],
+            "errors": []
+        }
+    ],
+    "stats": {
+        "usersCreated": 1,
+        "usersExisting": 0,
+        "vehiclesCreated": 1,
+        "relations": 1,
+        "errors": 0
+    }
+}

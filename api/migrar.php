@@ -40,6 +40,7 @@ function out($a)
     @flush();
 }
 
+
 function motivoError($respuesta)
 {
     if (empty($respuesta)) {
@@ -49,6 +50,7 @@ function motivoError($respuesta)
     $json = json_decode($respuesta, true);
 
     if (is_array($json)) {
+
         if (!empty($json['message'])) {
             return $json['message'];
         }
@@ -66,6 +68,8 @@ function motivoError($respuesta)
 
     return trim($respuesta);
 }
+
+
 /*
 |--------------------------------------------------------------------------
 | Buscar usuario
@@ -190,6 +194,41 @@ $sa = $_SESSION['sa'];
 $sd = $_SESSION['sd'];
 
 $sel = $_SESSION['selected_users'];
+
+
+/*
+|--------------------------------------------------------------------------
+| Vehículos seleccionados
+|--------------------------------------------------------------------------
+|
+| Esta información viene de:
+|
+| usuarios.php
+|      ↓
+| seleccionar_usuarios.php
+|      ↓
+| $_SESSION['selected_vehicles']
+|
+| Si un usuario NO tiene una configuración aquí,
+| se mantiene el comportamiento anterior:
+| se migran todos sus vehículos.
+|
+| Si existe una configuración:
+|
+|     [10, 15, 20]
+|
+| solamente esos vehículos serán migrados.
+|
+| Si existe una configuración vacía:
+|
+|     []
+|
+| no se migrará ningún vehículo de ese usuario.
+|
+*/
+
+$selectedVehicles =
+    $_SESSION['selected_vehicles'] ?? [];
 
 
 /*
@@ -438,21 +477,27 @@ foreach ($sel as $i => $u) {
             $p['id'],
             $p['password']
         );
-    /*
- * Normalizar attributes para Traccar.
- *
- * Traccar espera attributes como objeto.
- * Si SA devuelve un array vacío/lista, lo convertimos
- * en un objeto vacío.
- */
 
-    if (
-        isset($p['attributes']) &&
-        is_array($p['attributes']) &&
-        array_is_list($p['attributes'])
+
+        /*
+         * Normalizar attributes para Traccar.
+         *
+         * Traccar espera attributes como objeto.
+         * Si SA devuelve un array vacío/lista, lo convertimos
+         * en un objeto vacío.
+         */
+
+        if (
+            isset($p['attributes']) &&
+            is_array($p['attributes']) &&
+            array_is_list($p['attributes'])
         ) {
-        $p['attributes'] = new stdClass();
+
+            $p['attributes'] =
+                new stdClass();
+
         }
+
 
         /*
          * Asignar contraseña temporal
@@ -501,9 +546,11 @@ foreach ($sel as $i => $u) {
                 'message' =>
                     $name .
                     ' no pudo crearse (HTTP ' .
-                        ($c['http'] ?? 0) .
-                            '). Motivo: ' .
-                    motivoError($c['respuesta'] ?? '')
+                    ($c['http'] ?? 0) .
+                    '). Motivo: ' .
+                    motivoError(
+                        $c['respuesta'] ?? ''
+                    )
 
             ]);
 
@@ -701,7 +748,6 @@ foreach (
     as &$pu
 ) {
 
-
     if (
         empty(
             $pu['destinationId']
@@ -709,6 +755,7 @@ foreach (
     ) {
 
         continue;
+
     }
 
 
@@ -754,34 +801,163 @@ foreach (
     }
 
 
-    out([
+    /*
+    |--------------------------------------------------------------------------
+    | Filtrar vehículos según selección del usuario
+    |--------------------------------------------------------------------------
+    |
+    | Si existe una configuración para este usuario,
+    | solamente se procesan los IDs seleccionados.
+    |
+    | Si la configuración es []:
+    | no se procesa ningún vehículo.
+    |
+    | Si no existe configuración:
+    | se procesan todos, manteniendo compatibilidad
+    | con el funcionamiento anterior.
+    |
+    */
 
-        'type' =>
-            'log',
+    $sourceUserId =
+        (int) $pu['sourceId'];
 
-        'level' =>
-            'info',
 
-        'message' =>
-            $pu['name'] .
-            ' — ' .
-            count($vr['datos']) .
-            ' vehículo(s) encontrados.'
+    $hasVehicleSelection =
+        array_key_exists(
+            $sourceUserId,
+            $selectedVehicles
+        );
 
-    ]);
+
+    if ($hasVehicleSelection) {
+
+        $allowedVehicles =
+            array_values(
+                array_unique(
+                    array_map(
+                        'intval',
+                        is_array(
+                            $selectedVehicles[
+                                $sourceUserId
+                            ]
+                        )
+                            ? $selectedVehicles[
+                                $sourceUserId
+                            ]
+                            : []
+                    )
+                )
+            );
+
+
+        $vehiclesToMigrate =
+            array_filter(
+
+                $vr['datos'],
+
+                function ($v) use (
+                    $allowedVehicles
+                ) {
+
+                    return in_array(
+
+                        (int) (
+                            $v['id'] ??
+                            0
+                        ),
+
+                        $allowedVehicles,
+
+                        true
+
+                    );
+
+                }
+
+            );
+
+    }
+
+    else {
+
+        /*
+         * Usuario sin configuración:
+         * comportamiento anterior.
+         */
+
+        $vehiclesToMigrate =
+            $vr['datos'];
+
+    }
+
+
+    $foundCount =
+        count($vr['datos']);
+
+
+    $selectedCount =
+        count($vehiclesToMigrate);
 
 
     /*
     |--------------------------------------------------------------------------
-    | Procesar vehículos
+    | Log de vehículos
+    |--------------------------------------------------------------------------
+    */
+
+    if ($hasVehicleSelection) {
+
+        out([
+
+            'type' =>
+                'log',
+
+            'level' =>
+                'info',
+
+            'message' =>
+                $pu['name'] .
+                ' — ' .
+                $foundCount .
+                ' vehículo(s) encontrados, ' .
+                $selectedCount .
+                ' seleccionado(s).'
+
+        ]);
+
+    }
+
+    else {
+
+        out([
+
+            'type' =>
+                'log',
+
+            'level' =>
+                'info',
+
+            'message' =>
+                $pu['name'] .
+                ' — ' .
+                $foundCount .
+                ' vehículo(s) encontrados. Se procesarán todos.'
+
+        ]);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Procesar vehículos seleccionados
     |--------------------------------------------------------------------------
     */
 
     foreach (
-        $vr['datos']
+        $vehiclesToMigrate
         as $v
     ) {
-
 
         $vn =
             $v['name'] ??
@@ -1072,6 +1248,7 @@ foreach (
 
 }
 
+
 unset($pu);
 
 
@@ -1103,6 +1280,7 @@ if (!is_dir($dir)) {
         0775,
         true
     );
+
 }
 
 
@@ -1139,8 +1317,10 @@ file_put_contents(
 out(
 
     [
+
         'type' =>
             'summary'
+
     ]
 
     + $stats

@@ -1,0 +1,244 @@
+{
+    "version": "1.0",
+    "type": "Traccar_migration",
+    "createdAt": "2026-08-19T18:29:17+02:00",
+    "source": {
+        "url": "https://app.antiloss.net"
+    },
+    "destination": {
+        "url": "http://86.38.200.82:8082"
+    },
+    "users": [
+        {
+            "sourceId": 208,
+            "destinationId": 158,
+            "name": "augusmora",
+            "email": "augusmora@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [],
+            "errors": []
+        },
+        {
+            "sourceId": 390,
+            "destinationId": 159,
+            "name": "Banool",
+            "email": "alarconestor5@gmail.com/",
+            "phone": "58170413neto",
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [],
+            "errors": []
+        },
+        {
+            "sourceId": 298,
+            "destinationId": 44,
+            "name": "Diego",
+            "email": "Diegopineda1022@gmail.com",
+            "phone": "50230903167",
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 1111,
+                    "destinationId": 77,
+                    "name": "Camion C910BYM /",
+                    "uniqueId": "865167042793696"
+                },
+                {
+                    "sourceId": 1141,
+                    "destinationId": 78,
+                    "name": "Freightliner blanco c631 BLX /",
+                    "uniqueId": "868166058811290"
+                },
+                {
+                    "sourceId": 985,
+                    "destinationId": 79,
+                    "name": "Freightliner C033BDJ /tiguo C470BZJ / 0",
+                    "uniqueId": "869706060808328"
+                },
+                {
+                    "sourceId": 922,
+                    "destinationId": 80,
+                    "name": "Frilener BLANCO C756BLQ /r",
+                    "uniqueId": "868166058811647"
+                }
+            ],
+            "errors": []
+        },
+        {
+            "sourceId": 299,
+            "destinationId": 160,
+            "name": "Diego",
+            "email": "2diegopineda1022@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [],
+            "errors": []
+        },
+        {
+            "sourceId": 218,
+            "destinationId": 161,
+            "name": "Edgar",
+            "email": "edgar@gps",
+            "phone": "6487431036",
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 661,
+                    "destinationId": 199,
+                    "name": "Chevrolet negro  p-138kmn",
+                    "uniqueId": "868166055913636"
+                }
+            ],
+            "errors": []
+        },
+        {
+            "sourceId": 285,
+            "destinationId": 162,
+            "name": "Edwin",
+            "email": "edwin7ro@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 875,
+                    "destinationId": 491,
+                    "name": "Zion P759JZQ",
+                    "uniqueId": "868166058811852"
+                }
+            ],
+            "errors": []
+        },
+        {
+            "sourceId": 286,
+            "destinationId": 163,
+            "name": "Esvin",
+            "email": "Cardonaesvin100@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 876,
+                    "destinationId": 214,
+                    "name": "Esvin",
+                    "uniqueId": "868166057425399"
+                }
+            ],
+            "errors": []
+        },
+        {
+            "sourceId": 323,
+            "destinationId": 56,
+            "name": "Esvin",
+            "email": "yuniorlopez19941994@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 998,
+                    "destinationId": 45,
+                    "name": "Toyota hitundra P912KYY",
+                    "uniqueId": "869706060808344"
+                }
+            ],
+            "errors": []
+        },
+        {
+            "sourceId": 224,
+            "destinationId": 164,
+            "name": "Hrcr",
+            "email": "1964hrcr@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 676,
+                    "destinationId": 203,
+                    "name": "COROLA BLANCO",
+                    "uniqueId": "353701092250048"
+                },
+                {
+                    "sourceId": 677,
+                    "destinationId": 394,
+                    "name": "PRADO",
+                    "uniqueId": "353701092248745"
+                },
+                {
+                    "sourceId": 678,
+                    "destinationId": 425,
+                    "name": "SOFIA",
+                    "uniqueId": "353701092248208"
+                },
+                {
+                    "sourceId": 679,
+                    "destinationId": 484,
+                    "name": "YARIS ROJO",
+                    "uniqueId": "353701092244983"
+                }
+            ],
+            "errors": []
+        },
+        {
+            "sourceId": 222,
+            "destinationId": 165,
+            "name": "Jef",
+            "email": "jeffcarranza2@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 673,
+                    "destinationId": 232,
+                    "name": "Gps 1",
+                    "uniqueId": "868166055914303"
+                }
+            ],
+            "errors": []
+        },
+        {
+            "sourceId": 231,
+            "destinationId": 166,
+            "name": "transportes Gonzales",
+            "email": "Transportesgonzalezmonrroy@gmail.com",
+            "phone": null,
+            "passwordMigrated": false,
+            "passwordResetRequired": true,
+            "resetUrl": "http://86.38.200.82:8082/reset-password",
+            "vehicles": [
+                {
+                    "sourceId": 93,
+                    "destinationId": 455,
+                    "name": "Transporte Gonzalez",
+                    "uniqueId": "359710048723044"
+                }
+            ],
+            "errors": []
+        }
+    ],
+    "stats": {
+        "usersCreated": 9,
+        "usersExisting": 2,
+        "vehiclesCreated": 0,
+        "relations": 14,
+        "errors": 0
+    }
+}
