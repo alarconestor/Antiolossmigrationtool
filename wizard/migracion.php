@@ -25,7 +25,7 @@ if (
         content="width=device-width,initial-scale=1"
     >
 
-    <title>Migración</title>
+    <title>Migración - Antiloss Migration Tool</title>
 
     <link
         rel="stylesheet"
@@ -37,60 +37,167 @@ if (
 
 <body>
 
+
+<!-- ==================================================
+     LOADER INICIAL
+================================================== -->
+
+<div id="initial-loader" class="initial-loader">
+
+    <div class="spinner"></div>
+
+</div>
+
+
 <div class="app wide">
 
 
-    <div class="brand">
+    <!-- ==================================================
+         CABECERA
+    ================================================== -->
 
-        Traccar <span>Migration Tool</span>
+    <header class="topbar">
 
-    </div>
+        <div class="brand">
 
+            <div class="brand-icon">
+                A
+            </div>
+
+            <div>
+
+                <div class="brand-title">
+                    Antiloss
+                </div>
+
+                <div class="brand-subtitle">
+                    Migration Tool
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="version">
+            v1.0
+        </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         PASOS
+    ================================================== -->
 
     <div class="steps">
 
-        <b class="done">
-            ✓ Origen
-        </b>
+
+        <div class="step done">
+
+            <span class="step-number">
+                ✓
+            </span>
+
+            <span>
+                Origen
+            </span>
+
+        </div>
+
 
         <i></i>
 
-        <b class="done">
-            ✓ Usuarios
-        </b>
+
+        <div class="step done">
+
+            <span class="step-number">
+                ✓
+            </span>
+
+            <span>
+                Usuarios
+            </span>
+
+        </div>
+
 
         <i></i>
 
-        <b class="done">
-            ✓ Destino
-        </b>
+
+        <div class="step done">
+
+            <span class="step-number">
+                ✓
+            </span>
+
+            <span>
+                Destino
+            </span>
+
+        </div>
+
 
         <i></i>
 
-        <b class="on">
-            4 Migración
-        </b>
+
+        <div class="step active">
+
+            <span class="step-number">
+                4
+            </span>
+
+            <span>
+                Migración
+            </span>
+
+        </div>
+
 
     </div>
 
 
+    <!-- ==================================================
+         TARJETA
+    ================================================== -->
+
     <main class="card">
 
-        <small>
-            PASO 4
-        </small>
+
+        <div class="card-header">
+
+            <div class="section-icon">
+                ↗
+            </div>
 
 
-        <h1 id="title">
-            Listo para migrar
-        </h1>
+            <div>
+
+                <small>
+                    PASO 4
+                </small>
+
+                <h1 id="title">
+                    Listo para migrar
+                </h1>
+
+            </div>
+
+        </div>
 
 
-        <p id="sub">
+        <p
+            id="sub"
+            class="description"
+        >
             Fase 1: usuarios.
             Después Fase 2: vehículos y relaciones.
         </p>
 
+
+        <!-- ==================================================
+             PROGRESO
+        ================================================== -->
 
         <div class="bar">
 
@@ -98,6 +205,10 @@ if (
 
         </div>
 
+
+        <!-- ==================================================
+             FASES
+        ================================================== -->
 
         <div class="phase">
 
@@ -112,6 +223,10 @@ if (
         </div>
 
 
+        <!-- ==================================================
+             ESTADO ACTUAL
+        ================================================== -->
+
         <div
             id="current"
             class="current"
@@ -120,50 +235,96 @@ if (
         </div>
 
 
+        <!-- ==================================================
+             LOG
+        ================================================== -->
+
         <div
             id="log"
             class="log"
         ></div>
 
 
-        <div id="summary" class="summary hide"></div>
+        <!-- ==================================================
+             RESUMEN
+        ================================================== -->
 
-<div id="final-actions" class="hide">
-    <a id="download-package"
-       class="button"
-       href="#"
-       download>
-        Descargar paquete de migración
-    </a>
-     <!--
-        ------------------------------------------------------------
-        BOTÓN FINALIZAR
-        ------------------------------------------------------------
-        -->
+        <div
+            id="summary"
+            class="summary hide"
+        ></div>
 
-        <a
-            id="finish"
-            href="../index.php"
-            class="finish-button"
-            style="display:none;"
+
+        <!-- ==================================================
+             ACCIONES FINALES
+        ================================================== -->
+
+        <div
+            id="final-actions"
+            class="final-actions hide"
         >
-            Finalizar migración →
-        </a>
-   
-</div>
 
-<button id="go">Iniciar migración</button>
+            <a
+                id="download-package"
+                class="button"
+                href="#"
+                download
+            >
+                Descargar paquete de migración
+            </a>
 
 
-       
+            <a
+                id="finish"
+                href="../index.php"
+                class="finish-button"
+            >
+                Finalizar migración →
+            </a>
+
+        </div>
+
+
+        <!-- ==================================================
+             INICIAR
+        ================================================== -->
+
+        <button
+            id="go"
+            type="button"
+        >
+            Iniciar migración
+        </button>
 
 
     </main>
+
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <span>
+            Antiloss Migration Tool
+        </span>
+
+        <span>
+            Traccar API
+        </span>
+
+    </footer>
+
 
 </div>
 
 
 <script>
+
+/* ==================================================
+   ELEMENTOS
+================================================== */
 
 const go =
     document.getElementById('go');
@@ -184,18 +345,45 @@ const sum =
     document.getElementById('summary');
 
 
-/*
-|--------------------------------------------------------------------------
-| Iniciar migración
-|--------------------------------------------------------------------------
-*/
+/* ==================================================
+   OCULTAR LOADER INICIAL
+================================================== */
+
+window.addEventListener('load', function () {
+
+    const loader =
+        document.getElementById(
+            'initial-loader'
+        );
+
+
+    setTimeout(function () {
+
+        loader.classList.add(
+            'hide'
+        );
+
+    }, 250);
+
+});
+
+
+/* ==================================================
+   INICIAR MIGRACIÓN
+================================================== */
 
 go.onclick = async () => {
 
     go.disabled = true;
 
-    go.textContent =
-        'Migrando...';
+
+    go.innerHTML = `
+
+        <span class="button-spinner"></span>
+
+        Migrando...
+
+    `;
 
 
     try {
@@ -221,8 +409,10 @@ go.onclick = async () => {
         let reader =
             r.body.getReader();
 
+
         let dec =
             new TextDecoder();
+
 
         let buf =
             '';
@@ -282,10 +472,13 @@ go.onclick = async () => {
         }
 
 
-    } catch (e) {
+    }
+
+    catch (e) {
 
         cur.className =
             'current error';
+
 
         cur.textContent =
             'Error: ' +
@@ -295,6 +488,7 @@ go.onclick = async () => {
         go.disabled =
             false;
 
+
         go.textContent =
             'Reintentar';
 
@@ -303,20 +497,16 @@ go.onclick = async () => {
 };
 
 
-/*
-|--------------------------------------------------------------------------
-| Procesar eventos de migración
-|--------------------------------------------------------------------------
-*/
+/* ==================================================
+   PROCESAR EVENTOS
+================================================== */
 
 function event(e)
 {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Fase
-    |--------------------------------------------------------------------------
-    */
+    /* ==================================================
+       FASE
+    ================================================== */
 
     if (
         e.type === 'phase'
@@ -354,11 +544,9 @@ function event(e)
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Progreso
-    |--------------------------------------------------------------------------
-    */
+    /* ==================================================
+       PROGRESO
+    ================================================== */
 
     if (
         e.type === 'progress'
@@ -374,11 +562,9 @@ function event(e)
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Log
-    |--------------------------------------------------------------------------
-    */
+    /* ==================================================
+       LOG
+    ================================================== */
 
     if (
         e.type === 'log'
@@ -415,63 +601,97 @@ function event(e)
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | MIGRACIÓN COMPLETADA
-    |--------------------------------------------------------------------------
-    */
+    /* ==================================================
+       MIGRACIÓN COMPLETADA
+    ================================================== */
 
-    if (e.type === 'summary') {
+    if (
+        e.type === 'summary'
+    ) {
 
-    fill.style.width = '100%';
-
-    sum.classList.remove('hide');
-
-    sum.innerHTML =
-        '<h2>✓ Migración completada</h2>' +
-        '<p>' +
-        'Usuarios creados: <b>' + e.usersCreated + '</b> · ' +
-        'Existentes: <b>' + e.usersExisting + '</b> · ' +
-        'Vehículos creados: <b>' + e.vehiclesCreated + '</b> · ' +
-        'Relaciones: <b>' + e.relations + '</b> · ' +
-        'Errores: <b>' + e.errors + '</b>' +
-        '</p>' +
-        '<p>Paquete: <code>' + e.package + '</code></p>';
-
-    cur.textContent =
-        'Proceso finalizado correctamente';
-
-    go.style.display = 'none';
-
-    const acciones =
-        document.getElementById('final-actions');
-
-    const descarga =
-        document.getElementById('download-package');
-
-    descarga.href =
-        '../packages/' +
-        encodeURIComponent(e.package);
-
-    acciones.classList.remove('hide');
-}
+        fill.style.width =
+            '100%';
 
 
-        /*
-        * Mostrar botón finalizar
-        */
+        sum.classList.remove(
+            'hide'
+        );
 
-        finish.style.display =
-            'inline-block';
+
+        sum.innerHTML =
+
+            '<h2>✓ Migración completada</h2>' +
+
+            '<p>' +
+
+            'Usuarios creados: <b>' +
+            e.usersCreated +
+            '</b> · ' +
+
+            'Existentes: <b>' +
+            e.usersExisting +
+            '</b> · ' +
+
+            'Vehículos creados: <b>' +
+            e.vehiclesCreated +
+            '</b> · ' +
+
+            'Relaciones: <b>' +
+            e.relations +
+            '</b> · ' +
+
+            'Errores: <b>' +
+            e.errors +
+            '</b>' +
+
+            '</p>' +
+
+            '<p>Paquete: <code>' +
+            e.package +
+            '</code></p>';
+
+
+        cur.className =
+            'current success';
+
+
+        cur.textContent =
+            'Proceso finalizado correctamente';
+
+
+        go.style.display =
+            'none';
+
+
+        const acciones =
+            document.getElementById(
+                'final-actions'
+            );
+
+
+        const descarga =
+            document.getElementById(
+                'download-package'
+            );
+
+
+        descarga.href =
+            '../packages/' +
+            encodeURIComponent(
+                e.package
+            );
+
+
+        acciones.classList.remove(
+            'hide'
+        );
 
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Error fatal
-    |--------------------------------------------------------------------------
-    */
+    /* ==================================================
+       ERROR FATAL
+    ================================================== */
 
     if (
         e.type === 'fatal'
@@ -484,62 +704,19 @@ function event(e)
         cur.textContent =
             e.message;
 
+
+        go.disabled =
+            false;
+
+
+        go.textContent =
+            'Reintentar';
+
     }
 
-
+}
 
 </script>
-
-
-<style>
-
-/*
-|--------------------------------------------------------------------------
-| Botón finalizar
-|--------------------------------------------------------------------------
-*/
-
-.finish-button {
-
-    display: inline-block;
-
-    margin-top: 15px;
-
-    padding: 12px 22px;
-
-    background: #222;
-
-    color: #fff;
-
-    text-decoration: none;
-
-    border-radius: 7px;
-
-    font-size: 15px;
-
-    cursor: pointer;
-
-    transition:
-        background .2s ease,
-        transform .1s ease;
-
-}
-
-
-.finish-button:hover {
-
-    background: #444;
-
-}
-
-
-.finish-button:active {
-
-    transform: translateY(1px);
-
-}
-
-</style>
 
 
 </body>

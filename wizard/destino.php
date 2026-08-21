@@ -28,139 +28,168 @@ unset($_SESSION['wizard_error']);
         content="width=device-width,initial-scale=1"
     >
 
-    <title>Destino</title>
+    <title>Destino - Antiloss Migration Tool</title>
 
     <link
         rel="stylesheet"
         href="../assets/css/app.css"
     >
 
-    <style>
-
-        .warning-box {
-
-            background: #fff8e6;
-
-            border: 1px solid #e6c96a;
-
-            color: #66520a;
-
-            padding: 18px;
-
-            border-radius: 9px;
-
-            margin: 20px 0;
-
-            line-height: 1.5;
-
-        }
-
-        .warning-box strong {
-
-            color: #514000;
-
-        }
-
-        .warning-box p {
-
-            margin: 8px 0;
-
-            color: #66520a;
-
-        }
-
-        .warning-box code {
-
-            display: inline-block;
-
-            background: #fff;
-
-            border: 1px solid #ddd;
-
-            padding: 6px 10px;
-
-            border-radius: 5px;
-
-            font-family: monospace;
-
-        }
-
-        .info-box {
-
-            background: #f4f6f8;
-
-            border: 1px solid #dde1e5;
-
-            color: #666;
-
-            padding: 10px 12px;
-
-            border-radius: 7px;
-
-            margin-top: 8px;
-
-            font-size: 13px;
-
-        }
-
-    </style>
-
 </head>
 
 
 <body>
 
+
+<!-- ==================================================
+     LOADER INICIAL
+================================================== -->
+
+<div id="initial-loader" class="initial-loader">
+
+    <div class="spinner"></div>
+
+</div>
+
+
 <div class="app">
 
 
-    <div class="brand">
+    <!-- ==================================================
+         CABECERA
+    ================================================== -->
 
-        Traccar <span>Migration Tool</span>
+    <header class="topbar">
 
-    </div>
+        <div class="brand">
 
+            <div class="brand-icon">
+                A
+            </div>
+
+            <div>
+
+                <div class="brand-title">
+                    Antiloss
+                </div>
+
+                <div class="brand-subtitle">
+                    Migration Tool
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="version">
+            v1.0
+        </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         PASOS
+    ================================================== -->
 
     <div class="steps">
 
-        <b class="done">
-            ✓ Origen
-        </b>
+
+        <div class="step done">
+
+            <span class="step-number">
+                ✓
+            </span>
+
+            <span>
+                Origen
+            </span>
+
+        </div>
+
 
         <i></i>
 
-        <b class="done">
-            ✓ Usuarios
-        </b>
+
+        <div class="step done">
+
+            <span class="step-number">
+                ✓
+            </span>
+
+            <span>
+                Usuarios
+            </span>
+
+        </div>
+
 
         <i></i>
 
-        <b class="on">
-            3 Destino
-        </b>
+
+        <div class="step active">
+
+            <span class="step-number">
+                3
+            </span>
+
+            <span>
+                Destino
+            </span>
+
+        </div>
+
 
         <i></i>
 
-        <b>
-            4 Migración
-        </b>
+
+        <div class="step">
+
+            <span class="step-number">
+                4
+            </span>
+
+            <span>
+                Migración
+            </span>
+
+        </div>
+
 
     </div>
 
+
+    <!-- ==================================================
+         TARJETA
+    ================================================== -->
 
     <main class="card">
 
 
-        <small>
-            PASO 3
-        </small>
+        <div class="card-header">
+
+            <div class="section-icon">
+                ↗
+            </div>
 
 
-        <h1>
-            Servidor Destino
-        </h1>
+            <div>
+
+                <small>
+                    PASO 3
+                </small>
+
+                <h1>
+                    Servidor Destino
+                </h1>
+
+            </div>
+
+        </div>
 
 
-        <p>
+        <p class="description">
 
             Se migrarán
 
@@ -184,11 +213,9 @@ unset($_SESSION['wizard_error']);
         <?php endif; ?>
 
 
-        <!--
-        ------------------------------------------------------------
-        AVISO SOBRE CONTRASEÑAS
-        ------------------------------------------------------------
-        -->
+        <!-- ==================================================
+             AVISO SOBRE CONTRASEÑAS
+        ================================================== -->
 
         <div class="warning-box">
 
@@ -239,7 +266,12 @@ unset($_SESSION['wizard_error']);
         </div>
 
 
+        <!-- ==================================================
+             FORMULARIO DESTINO
+        ================================================== -->
+
         <form
+            id="destino-form"
             method="post"
             action="../api/conectar_destino.php"
         >
@@ -270,6 +302,7 @@ unset($_SESSION['wizard_error']);
             <input
                 name="user"
                 required
+                autocomplete="username"
             >
 
 
@@ -284,6 +317,7 @@ unset($_SESSION['wizard_error']);
                 name="pass"
                 type="password"
                 required
+                autocomplete="current-password"
             >
 
 
@@ -317,18 +351,43 @@ unset($_SESSION['wizard_error']);
             </div>
 
 
-            <br>
+            <!-- ==================================================
+                 BOTÓN
+            ================================================== -->
+
+            <div class="form-footer destino-footer">
+
+                <div class="connection-info">
+
+                    <span class="status-dot"></span>
+
+                    Conexión mediante API
+
+                </div>
 
 
-            <button type="submit">
+                <button
+                    id="connect-destination"
+                    type="submit"
+                >
 
-                Conectar y comenzar →
+                    Conectar y comenzar
 
-            </button>
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+            </div>
 
 
         </form>
 
+
+        <!-- ==================================================
+             NAVEGACIÓN
+        ================================================== -->
 
         <div class="actions">
 
@@ -344,7 +403,88 @@ unset($_SESSION['wizard_error']);
     </main>
 
 
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <span>
+            Antiloss Migration Tool
+        </span>
+
+        <span>
+            Traccar API
+        </span>
+
+    </footer>
+
+
 </div>
+
+
+<script>
+
+/* ==================================================
+   OCULTAR LOADER INICIAL
+================================================== */
+
+window.addEventListener('load', function () {
+
+    const loader =
+        document.getElementById(
+            'initial-loader'
+        );
+
+
+    setTimeout(function () {
+
+        loader.classList.add(
+            'hide'
+        );
+
+    }, 250);
+
+});
+
+
+/* ==================================================
+   FORMULARIO DESTINO
+================================================== */
+
+const destinoForm =
+    document.getElementById(
+        'destino-form'
+    );
+
+
+const connectDestination =
+    document.getElementById(
+        'connect-destination'
+    );
+
+
+destinoForm.addEventListener(
+    'submit',
+    function () {
+
+        connectDestination.disabled =
+            true;
+
+
+        connectDestination.innerHTML = `
+
+            <span class="button-spinner"></span>
+
+            Conectando con destino...
+
+        `;
+
+    }
+);
+
+</script>
+
 
 </body>
 

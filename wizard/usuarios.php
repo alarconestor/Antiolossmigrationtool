@@ -1,298 +1,207 @@
 <?php
 session_start();
 
-if(empty($_SESSION['sa'])){
+if (empty($_SESSION['sa'])) {
     header('Location: ../index.php');
     exit;
 }
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Usuarios</title>
-<link rel="stylesheet" href="../assets/css/app.css">
 
-<style>
-/* ============================
-   MODAL
-============================ */
+    <meta charset="utf-8">
 
-.modal-backdrop{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:1000;
-    padding:20px;
-}
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1">
 
-.modal-backdrop.hide{
-    display:none;
-}
+    <title>Usuarios - Antiloss Migration Tool</title>
 
-.modal{
-    width:min(720px,100%);
-    max-height:90vh;
-    background:#fff;
-    border-radius:14px;
-    box-shadow:0 20px 60px rgba(0,0,0,.25);
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-}
+    <link rel="stylesheet"
+          href="../assets/css/app.css">
 
-.modal-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:20px 22px;
-    border-bottom:1px solid #e5e7eb;
-}
-
-.modal-head h2{
-    margin:0;
-    font-size:20px;
-}
-
-.modal-head small{
-    display:block;
-    color:#6b7280;
-    margin-top:4px;
-}
-
-.modal-close{
-    border:0;
-    background:transparent;
-    font-size:24px;
-    cursor:pointer;
-    color:#6b7280;
-    padding:4px 8px;
-}
-
-.modal-tabs{
-    display:flex;
-    border-bottom:1px solid #e5e7eb;
-    padding:0 20px;
-    gap:4px;
-}
-
-.modal-tab{
-    border:0;
-    background:transparent;
-    padding:13px 16px;
-    color:#6b7280;
-    cursor:pointer;
-    border-bottom:2px solid transparent;
-    font-weight:600;
-}
-
-.modal-tab.active{
-    color:#111827;
-    border-bottom-color:#2563eb;
-}
-
-.modal-body{
-    padding:20px;
-    overflow:auto;
-}
-
-.tab-content.hide{
-    display:none;
-}
-
-
-/* ============================
-   VEHÍCULOS
-============================ */
-
-.vehicle-toolbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    margin-bottom:14px;
-    padding:12px 14px;
-    background:#f8fafc;
-    border-radius:9px;
-}
-
-.vehicle-toolbar label{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-weight:600;
-}
-
-.vehicle-count{
-    color:#6b7280;
-    font-size:14px;
-}
-
-.vehicle-list{
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-    overflow:hidden;
-}
-
-.vehicle-row{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:13px 15px;
-    border-bottom:1px solid #e5e7eb;
-    cursor:pointer;
-}
-
-.vehicle-row:last-child{
-    border-bottom:0;
-}
-
-.vehicle-row:hover{
-    background:#f8fafc;
-}
-
-.vehicle-row input{
-    width:18px;
-    height:18px;
-}
-
-.vehicle-info{
-    flex:1;
-}
-
-.vehicle-name{
-    font-weight:600;
-}
-
-.vehicle-id{
-    color:#6b7280;
-    font-size:12px;
-    margin-top:2px;
-}
-
-.vehicle-empty,
-.vehicle-loading{
-    padding:30px;
-    text-align:center;
-    color:#6b7280;
-}
-
-
-/* ============================
-   FOOTER MODAL
-============================ */
-
-.modal-foot{
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-    padding:16px 20px;
-    border-top:1px solid #e5e7eb;
-}
-
-.btn-secondary{
-    border:1px solid #d1d5db;
-    background:#fff;
-    color:#374151;
-    padding:9px 16px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.btn-primary{
-    border:0;
-    background:#2563eb;
-    color:#fff;
-    padding:9px 18px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.btn-primary:hover{
-    background:#1d4ed8;
-}
-
-
-/* ============================
-   BOTÓN EDITAR
-============================ */
-
-.edit-user{
-    border:0;
-    background:transparent;
-    cursor:pointer;
-    font-size:18px;
-    padding:5px 8px;
-    border-radius:6px;
-}
-
-.edit-user:hover{
-    background:#eef2ff;
-}
-</style>
 </head>
 
 <body>
 
+<!-- ==================================================
+     LOADER INICIAL
+================================================== -->
+
+<div id="initial-loader" class="initial-loader">
+
+    <div class="spinner"></div>
+
+</div>
+
+
 <div class="app wide">
 
-    <div class="brand">
-        Traccar <span>Migration Tool</span>
-    </div>
+
+    <!-- ==================================================
+         CABECERA
+    ================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                A
+            </div>
+
+            <div>
+
+                <div class="brand-title">
+                    Antiloss
+                </div>
+
+                <div class="brand-subtitle">
+                    Migration Tool
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="version">
+            v1.0
+        </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         PASOS
+    ================================================== -->
 
     <div class="steps">
-        <b class="done">✓ Origen</b>
+
+        <div class="step done">
+
+            <span class="step-number">
+                ✓
+            </span>
+
+            <span>
+                Origen
+            </span>
+
+        </div>
+
         <i></i>
-        <b class="on">2 Usuarios</b>
+
+        <div class="step active">
+
+            <span class="step-number">
+                2
+            </span>
+
+            <span>
+                Usuarios
+            </span>
+
+        </div>
+
         <i></i>
-        <b>3 Destino</b>
+
+        <div class="step">
+
+            <span class="step-number">
+                3
+            </span>
+
+            <span>
+                Destino
+            </span>
+
+        </div>
+
         <i></i>
-        <b>4 Migración</b>
+
+        <div class="step">
+
+            <span class="step-number">
+                4
+            </span>
+
+            <span>
+                Migración
+            </span>
+
+        </div>
+
     </div>
 
+
+    <!-- ==================================================
+         TARJETA PRINCIPAL
+    ================================================== -->
+
     <main class="card">
+
 
         <div class="head">
 
             <div>
-                <small>PASO 2</small>
 
-                <h1>Usuarios del origen</h1>
+                <small>
+                    PASO 2
+                </small>
+
+                <h1>
+                    Usuarios del origen
+                </h1>
 
                 <p>
-                    <?=htmlspecialchars($_SESSION['sa']['url'])?>
+                    <?= htmlspecialchars($_SESSION['sa']['url']) ?>
                 </p>
+
             </div>
 
+
             <button id="load">
+
                 Cargar usuarios
+
             </button>
 
         </div>
 
 
-        <div id="msg" class="msg"></div>
+        <div id="msg"
+             class="msg">
+        </div>
 
 
-        <div id="selectbar" class="selectbar hide">
+        <div id="selectbar"
+             class="selectbar hide">
 
             <label>
-                <input id="all" type="checkbox">
+
+                <input
+                    id="all"
+                    type="checkbox"
+                >
+
                 Seleccionar todos
+
             </label>
 
+
             <span id="count">
+
                 0 seleccionados
+
             </span>
 
         </div>
 
 
-        <div id="table" class="table hide"></div>
+        <div id="table"
+             class="table hide">
+        </div>
 
 
         <div class="actions">
@@ -301,13 +210,35 @@ if(empty($_SESSION['sa'])){
                 ← Volver
             </a>
 
-            <button id="next" class="disabled">
+            <button id="next"
+                    class="disabled">
+
                 Continuar →
+
             </button>
 
         </div>
 
+
     </main>
+
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <span>
+            Antiloss Migration Tool
+        </span>
+
+        <span>
+            Traccar API
+        </span>
+
+    </footer>
+
 
 </div>
 
@@ -316,7 +247,8 @@ if(empty($_SESSION['sa'])){
      MODAL EDITAR USUARIO
 ================================================== -->
 
-<div id="userModal" class="modal-backdrop hide">
+<div id="userModal"
+     class="modal-backdrop hide">
 
     <div class="modal">
 
@@ -334,6 +266,7 @@ if(empty($_SESSION['sa'])){
                 <small id="modalUserEmail"></small>
 
             </div>
+
 
             <button
                 id="closeModal"
@@ -356,12 +289,14 @@ if(empty($_SESSION['sa'])){
                 🚗 Vehículos
             </button>
 
+
             <button
                 class="modal-tab"
                 data-tab="alerts"
             >
                 🔔 Alertas
             </button>
+
 
             <button
                 class="modal-tab"
@@ -398,6 +333,7 @@ if(empty($_SESSION['sa'])){
 
                     </label>
 
+
                     <span
                         id="vehicleCount"
                         class="vehicle-count"
@@ -414,7 +350,9 @@ if(empty($_SESSION['sa'])){
                 >
 
                     <div class="vehicle-loading">
+
                         Cargando vehículos...
+
                     </div>
 
                 </div>
@@ -431,7 +369,9 @@ if(empty($_SESSION['sa'])){
 
                 <div class="vehicle-empty">
 
-                    <strong>Alertas</strong>
+                    <strong>
+                        Alertas
+                    </strong>
 
                     <br><br>
 
@@ -452,7 +392,9 @@ if(empty($_SESSION['sa'])){
 
                 <div class="vehicle-empty">
 
-                    <strong>Geozonas</strong>
+                    <strong>
+                        Geozonas
+                    </strong>
 
                     <br><br>
 
@@ -477,6 +419,7 @@ if(empty($_SESSION['sa'])){
             >
                 Cancelar
             </button>
+
 
             <button
                 id="saveModal"
@@ -550,16 +493,9 @@ const vehicleCount =
 
 
 /*
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------- 
 | Configuración temporal de migración
-|--------------------------------------------------------------------------
-|
-| Ejemplo:
-|
-| userMigrationConfig[15] = {
-|     vehicles: [10,12,18]
-| };
-|
+|-------------------------------------------------------------------------- 
 */
 
 const userMigrationConfig = {};
@@ -575,8 +511,10 @@ load.onclick = async () => {
 
     load.disabled = true;
 
-    load.textContent =
-        'Cargando...';
+    load.innerHTML = `
+        <span class="button-spinner"></span>
+        Cargando usuarios...
+    `;
 
 
     try {
@@ -590,7 +528,7 @@ load.onclick = async () => {
             await r.json();
 
 
-        if(!d.ok)
+        if (!d.ok)
             throw Error(d.mensaje);
 
 
@@ -715,10 +653,6 @@ load.onclick = async () => {
         bar.classList.remove('hide');
 
 
-        /*
-         * Checkboxes de usuarios
-         */
-
         document
             .querySelectorAll('.u')
             .forEach(c => {
@@ -728,10 +662,6 @@ load.onclick = async () => {
 
             });
 
-
-        /*
-         * Botones de editar
-         */
 
         document
             .querySelectorAll('.edit-user')
@@ -766,7 +696,7 @@ load.onclick = async () => {
 
     }
 
-    catch(e){
+    catch (e) {
 
         document
             .getElementById('msg')
@@ -775,11 +705,11 @@ load.onclick = async () => {
 
     }
 
-    finally{
+    finally {
 
         load.disabled = false;
 
-        load.textContent =
+        load.innerHTML =
             'Cargar usuarios';
 
     }
@@ -807,7 +737,7 @@ all.onchange = () => {
 };
 
 
-function update(){
+function update() {
 
     let a = [
         ...document.querySelectorAll('.u')
@@ -842,7 +772,7 @@ function update(){
    ABRIR MODAL
 ================================================== */
 
-async function openUserModal(user){
+async function openUserModal(user) {
 
     currentUser = user;
 
@@ -865,8 +795,13 @@ async function openUserModal(user){
 
 
     vehicleList.innerHTML =
+
         '<div class="vehicle-loading">' +
+
+        '<span class="inline-spinner"></span>' +
+
         'Cargando vehículos...' +
+
         '</div>';
 
 
@@ -875,10 +810,6 @@ async function openUserModal(user){
 
 
     try {
-
-        /*
-         * Consultar vehículos del usuario.
-         */
 
         let r =
             await fetch(
@@ -893,7 +824,7 @@ async function openUserModal(user){
             await r.json();
 
 
-        if(!d.ok)
+        if (!d.ok)
             throw Error(d.mensaje);
 
 
@@ -901,14 +832,9 @@ async function openUserModal(user){
             d.vehiculos || [];
 
 
-        /*
-         * Primera vez:
-         * todos seleccionados.
-         */
-
-        if(
+        if (
             !userMigrationConfig[user.id]
-        ){
+        ) {
 
             userMigrationConfig[user.id] = {
 
@@ -934,7 +860,7 @@ async function openUserModal(user){
 
     }
 
-    catch(e){
+    catch (e) {
 
         vehicleList.innerHTML =
 
@@ -960,9 +886,9 @@ async function openUserModal(user){
 function renderVehicles(
     vehicles,
     selectedIds
-){
+) {
 
-    if(!vehicles.length){
+    if (!vehicles.length) {
 
         vehicleList.innerHTML =
 
@@ -1069,7 +995,7 @@ function renderVehicles(
    CONTADOR DE VEHÍCULOS
 ================================================== */
 
-function updateVehicleCount(){
+function updateVehicleCount() {
 
     const vehicles = [
 
@@ -1130,7 +1056,7 @@ allVehicles.onchange = () => {
 
 saveModal.onclick = () => {
 
-    if(!currentUser)
+    if (!currentUser)
         return;
 
 
@@ -1165,7 +1091,7 @@ saveModal.onclick = () => {
    CERRAR MODAL
 ================================================== */
 
-function closeUserModal(){
+function closeUserModal() {
 
     userModal.classList.add(
         'hide'
@@ -1186,7 +1112,7 @@ cancelModal.onclick =
 
 userModal.onclick = e => {
 
-    if(e.target === userModal){
+    if (e.target === userModal) {
 
         closeUserModal();
 
@@ -1214,7 +1140,7 @@ document
     });
 
 
-function activateTab(name){
+function activateTab(name) {
 
     document
         .querySelectorAll('.modal-tab')
@@ -1267,7 +1193,7 @@ next.onclick = async () => {
     );
 
 
-    if(!ids.length)
+    if (!ids.length)
         return;
 
 
@@ -1275,17 +1201,18 @@ next.onclick = async () => {
         await fetch(
             '../api/seleccionar_usuarios.php',
             {
-                method:'POST',
+                method: 'POST',
 
-                headers:{
+                headers: {
                     'Content-Type':
                         'application/json'
                 },
 
                 body: JSON.stringify({
                     ids,
-                    vehicles: userMigrationConfig
-                    })
+                    vehicles:
+                        userMigrationConfig
+                })
             }
         );
 
@@ -1294,15 +1221,7 @@ next.onclick = async () => {
         await r.json();
 
 
-    if(d.ok){
-
-        /*
-         * Guardar temporalmente
-         * las configuraciones.
-         *
-         * Todavía no afectan
-         * la migración.
-         */
+    if (d.ok) {
 
         sessionStorage.setItem(
 
@@ -1320,7 +1239,7 @@ next.onclick = async () => {
 
     }
 
-    else{
+    else {
 
         alert(
             d.mensaje
@@ -1335,7 +1254,7 @@ next.onclick = async () => {
    ESCAPE HTML
 ================================================== */
 
-function x(v){
+function x(v) {
 
     return String(v ?? '')
         .replace(
@@ -1343,17 +1262,40 @@ function x(v){
 
             c => ({
 
-                '&':'&amp;',
-                '<':'&lt;',
-                '>':'&gt;',
-                '"':'&quot;',
-                "'":'&#039;'
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
 
             }[c])
 
         );
 
 }
+
+
+/* ==================================================
+   OCULTAR LOADER INICIAL
+================================================== */
+
+window.addEventListener('load', function () {
+
+    const loader =
+        document.getElementById(
+            'initial-loader'
+        );
+
+
+    setTimeout(function () {
+
+        loader.classList.add(
+            'hide'
+        );
+
+    }, 250);
+
+});
 
 </script>
 
