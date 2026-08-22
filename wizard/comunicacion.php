@@ -25,7 +25,7 @@ if (
         content="width=device-width,initial-scale=1"
     >
 
-    <title>Migración - Antiloss Migration Tool</title>
+    <title>Comunicación - Antiloss Migration Tool</title>
 
     <link
         rel="stylesheet"
@@ -141,14 +141,30 @@ if (
         <i></i>
 
 
-        <div class="step active">
+        <div class="step done">
 
             <span class="step-number">
-                4
+                ✓
             </span>
 
             <span>
                 Migración
+            </span>
+
+        </div>
+
+
+        <i></i>
+
+
+        <div class="step active">
+
+            <span class="step-number">
+                5
+            </span>
+
+            <span>
+                Comunicación
             </span>
 
         </div>
@@ -167,18 +183,18 @@ if (
         <div class="card-header">
 
             <div class="section-icon">
-                ↗
+                ✉
             </div>
 
 
             <div>
 
                 <small>
-                    PASO 4
+                    PASO 5
                 </small>
 
                 <h1 id="title">
-                    Listo para migrar
+                    Comunicación con los usuarios
                 </h1>
 
             </div>
@@ -190,9 +206,78 @@ if (
             id="sub"
             class="description"
         >
-            Fase 1: usuarios.
-            Después Fase 2: vehículos y relaciones.
+            La migración ha finalizado.
+            Ahora puedes comunicar a los usuarios el cambio de plataforma.
         </p>
+
+
+        <!-- ==================================================
+             INFORMACIÓN
+        ================================================== -->
+
+        <div class="info-box">
+
+            <strong>
+                ¿Qué ocurrirá?
+            </strong>
+
+            <br>
+
+            Se enviará un correo electrónico a los usuarios
+            seleccionados informándoles que su cuenta ha sido
+            migrada al nuevo servidor.
+
+        </div>
+
+
+        <!-- ==================================================
+             MENSAJE
+        ================================================== -->
+
+        <label for="subject">
+            Asunto del correo
+        </label>
+
+        <input
+            id="subject"
+            type="text"
+            value="Tu cuenta ha sido migrada - Antiloss GPS"
+        >
+
+
+        <label for="body">
+            Mensaje
+        </label>
+
+        <textarea
+            id="body"
+            rows="9"
+            style="
+                width:100%;
+                padding:13px;
+                border:1px solid #cfd5da;
+                border-radius:3px;
+                resize:vertical;
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:14px;
+                line-height:1.5;
+                color:#263238;
+                outline:none;
+            "
+        >Hola [NOMBRE],
+
+Tu cuenta de Antiloss GPS ha sido migrada correctamente a nuestra nueva plataforma.
+
+Para continuar utilizando el servicio debes ingresar al nuevo sistema y establecer una nueva contraseña.
+
+Tu usuario es:
+
+[EMAIL]
+
+Si necesitas ayuda para ingresar, puedes comunicarte con nuestro equipo de soporte.
+
+Saludos,
+Antiloss Technologies</textarea>
 
 
         <!-- ==================================================
@@ -207,31 +292,14 @@ if (
 
 
         <!-- ==================================================
-             FASES
-        ================================================== -->
-
-        <div class="phase">
-
-            <b id="p1">
-                1. Usuarios
-            </b>
-
-            <b id="p2">
-                2. Vehículos y relaciones
-            </b>
-
-        </div>
-
-
-        <!-- ==================================================
-             ESTADO ACTUAL
+             ESTADO
         ================================================== -->
 
         <div
             id="current"
             class="current"
         >
-            Pulsa iniciar para comenzar.
+            Listo para enviar la comunicación.
         </div>
 
 
@@ -256,7 +324,7 @@ if (
 
 
         <!-- ==================================================
-             ACCIONES FINALES
+             ACCIONES
         ================================================== -->
 
         <div
@@ -265,43 +333,24 @@ if (
         >
 
             <a
-                 id="communication"
-                 class="button"
-                  href="comunicacion.php"
-            >
-                  Enviar comunicación a usuarios →
-            </a>
-            
-            <a
-                id="download-package"
-                class="button"
-                href="#"
-                download
-            >
-                Descargar paquete de migración
-            </a>
-
-
-            <a
-                id="finish"
                 href="../api/finalizar.php"
                 class="finish-button"
             >
-                Finalizar migración →
+                Finalizar → 
             </a>
 
         </div>
 
 
         <!-- ==================================================
-             INICIAR
+             ENVIAR
         ================================================== -->
 
         <button
             id="go"
             type="button"
         >
-            Iniciar migración
+            Enviar comunicación
         </button>
 
 
@@ -337,9 +386,6 @@ if (
 const go =
     document.getElementById('go');
 
-const finish =
-    document.getElementById('finish');
-
 const fill =
     document.getElementById('fill');
 
@@ -352,9 +398,15 @@ const log =
 const sum =
     document.getElementById('summary');
 
+const subject =
+    document.getElementById('subject');
+
+const body =
+    document.getElementById('body');
+
 
 /* ==================================================
-   OCULTAR LOADER INICIAL
+   OCULTAR LOADER
 ================================================== */
 
 window.addEventListener('load', function () {
@@ -377,7 +429,7 @@ window.addEventListener('load', function () {
 
 
 /* ==================================================
-   INICIAR MIGRACIÓN
+   ENVIAR COMUNICACIÓN
 ================================================== */
 
 go.onclick = async () => {
@@ -389,77 +441,113 @@ go.onclick = async () => {
 
         <span class="button-spinner"></span>
 
-        Migrando...
+        Enviando...
 
     `;
 
 
+    cur.className =
+        'current';
+
+
+    cur.textContent =
+        'Preparando comunicación...';
+
+
     try {
 
-        let r =
+        const response =
             await fetch(
-                '../api/migrar.php',
+                '../api/comunicacion.php',
                 {
-                    method: 'POST'
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type':
+                            'application/json'
+                    },
+
+                    body: JSON.stringify({
+
+                        subject:
+                            subject.value,
+
+                        body:
+                            body.value
+
+                    })
                 }
             );
 
 
-        if (!r.ok) {
+        if (!response.ok) {
 
             throw Error(
-                'HTTP ' + r.status
+                'HTTP ' +
+                response.status
             );
 
         }
 
 
-        let reader =
-            r.body.getReader();
+        const reader =
+            response.body.getReader();
 
 
-        let dec =
+        const decoder =
             new TextDecoder();
 
 
-        let buf =
+        let buffer =
             '';
 
 
-        while (1) {
+        while (true) {
 
-            let z =
+            const result =
                 await reader.read();
 
 
-            if (z.done)
+            if (result.done)
                 break;
 
 
-            buf +=
-                dec.decode(
-                    z.value
+            buffer +=
+                decoder.decode(
+                    result.value
                 );
 
 
-            let a =
-                buf.split('\n');
+            const lines =
+                buffer.split('\n');
 
 
-            buf =
-                a.pop();
+            buffer =
+                lines.pop();
 
 
-            a.forEach(
+            lines.forEach(
                 line => {
 
                     if (
                         line.trim()
                     ) {
 
-                        event(
-                            JSON.parse(line)
-                        );
+                        try {
+
+                            event(
+                                JSON.parse(line)
+                            );
+
+                        }
+
+                        catch (e) {
+
+                            console.error(
+                                e
+                            );
+
+                        }
 
                     }
 
@@ -470,15 +558,14 @@ go.onclick = async () => {
 
 
         if (
-            buf.trim()
+            buffer.trim()
         ) {
 
             event(
-                JSON.parse(buf)
+                JSON.parse(buffer)
             );
 
         }
-
 
     }
 
@@ -513,46 +600,6 @@ function event(e)
 {
 
     /* ==================================================
-       FASE
-    ================================================== */
-
-    if (
-        e.type === 'phase'
-    ) {
-
-        document
-            .getElementById('p1')
-            .classList
-            .toggle(
-                'active',
-                e.phase === 1
-            );
-
-
-        document
-            .getElementById('p2')
-            .classList
-            .toggle(
-                'active',
-                e.phase === 2
-            );
-
-
-        document
-            .getElementById('title')
-            .textContent =
-            e.title;
-
-
-        document
-            .getElementById('sub')
-            .textContent =
-            e.message;
-
-    }
-
-
-    /* ==================================================
        PROGRESO
     ================================================== */
 
@@ -578,7 +625,7 @@ function event(e)
         e.type === 'log'
     ) {
 
-        let d =
+        const d =
             document.createElement(
                 'div'
             );
@@ -610,7 +657,7 @@ function event(e)
 
 
     /* ==================================================
-       MIGRACIÓN COMPLETADA
+       COMPLETADO
     ================================================== */
 
     if (
@@ -628,35 +675,23 @@ function event(e)
 
         sum.innerHTML =
 
-            '<h2>✓ Migración completada</h2>' +
+            '<h2>✓ Comunicación completada</h2>' +
 
             '<p>' +
 
-            'Usuarios creados: <b>' +
-            e.usersCreated +
+            'Correos enviados: <b>' +
+            (e.sent ?? 0) +
             '</b> · ' +
 
-            'Existentes: <b>' +
-            e.usersExisting +
-            '</b> · ' +
-
-            'Vehículos creados: <b>' +
-            e.vehiclesCreated +
-            '</b> · ' +
-
-            'Relaciones: <b>' +
-            e.relations +
+            'Omitidos: <b>' +
+            (e.skipped ?? 0) +
             '</b> · ' +
 
             'Errores: <b>' +
-            e.errors +
+            (e.errors ?? 0) +
             '</b>' +
 
-            '</p>' +
-
-            '<p>Paquete: <code>' +
-            e.package +
-            '</code></p>';
+            '</p>';
 
 
         cur.className =
@@ -671,28 +706,14 @@ function event(e)
             'none';
 
 
-        const acciones =
-            document.getElementById(
+        document
+            .getElementById(
                 'final-actions'
+            )
+            .classList
+            .remove(
+                'hide'
             );
-
-
-        const descarga =
-            document.getElementById(
-                'download-package'
-            );
-
-
-        descarga.href =
-            '../packages/' +
-            encodeURIComponent(
-                e.package
-            );
-
-
-        acciones.classList.remove(
-            'hide'
-        );
 
     }
 
